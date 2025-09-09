@@ -59,6 +59,18 @@ class Dog:
             str: Les caracteristiques du chien.
         """
         return f"Chien: {self.name}, Race: {self._race}, Sexe: {self._sex}"
+    
+    def bark(self,n : int = 1) -> str:
+        """
+        Retourne une string d'un chien qui aboit
+
+        Args:
+            n (int, optional): Un entier. Par défaut vaut 1.
+
+        Returns:
+            str: Woff concaténée n fois.
+        """
+        return "Woff"*n
 
 if __name__ == "__main__":
     pass
