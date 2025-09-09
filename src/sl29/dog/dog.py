@@ -30,6 +30,9 @@ class Dog:
         self._race = race
         self._sex = sex
         self.name = name
+        self._mother = None
+        self._father = None
+        self._puppies = []
 
     @property
     def race(self) -> str:
@@ -50,6 +53,36 @@ class Dog:
             str: Le sexe du chien.
         """
         return self._sex
+    
+    @property
+    def mother(self) -> Optional['Dog']:
+        """
+        Retourne la mère du chien ou None.
+
+        Returns:
+            Optional[Dog]: La mère du chien ou None
+        """
+        return self._mother
+    
+    @property
+    def father(self) -> Optional['Dog']:
+        """
+        Retourne le père du chien ou None.
+
+        Returns:
+            Optional[Dog]: Le père du chien ou None
+        """
+        return self._father
+
+    @property
+    def puppies(self) -> list[Optional['Dog']]:
+        """
+        Retourne les enfants du chien ou liste vide.
+
+        Returns:
+            list[Optional[Dog]]: Les enfants du chien ou liste vide
+        """
+        return self._puppies
 
     def __str__(self) -> str:
         """
@@ -95,6 +128,54 @@ class Dog:
             str: Les voyelles de la chaine stuff
         """
         return ''.join([letter for letter in stuff.lower() if letter in 'aeiouy'])
+    
+    def mate(self, other: 'Dog') -> 'Dog':
+        """
+        Fait s'accoupler deux chiens et retourne un chiot.
+
+        Args:
+            other (Dog): L'autre chien avec lequel s'accoupler.
+
+        Returns:
+            Dog: Le chiot issu de l'accouplement.
+
+        Raises:
+            MatingError: Si les deux chiens sont de même sexe.
+        """
+        # Vérification des sexes
+        if self.sex == other.sex:
+            raise MatingError
+        
+        # Détermination du père et de la mère
+        if self.sex == 'M':
+            pere = self
+            mere = other
+        else:
+            pere = other
+            mere = self
+
+        # Détermination de la race du chiot
+        if pere.race == mere.race:
+            enfant_race = pere.race
+        else:
+            enfant_race = 'bâtard'
+        
+        # Détermination du sexe du chiot (aléatoire)
+        enfant_sex = random.choice(['M','F'])
+
+        # Création du chiot
+        chiot = Dog(enfant_race,enfant_sex)
+
+        # Assignation des parents
+        chiot._mother = mere
+        chiot._father = pere
+
+        # Ajout du chiot à la liste des chiots des parents
+        mere._puppies.append(chiot)
+        pere._puppies.append(chiot)
+
+        return chiot
+
 
 if __name__ == "__main__":
     pass
