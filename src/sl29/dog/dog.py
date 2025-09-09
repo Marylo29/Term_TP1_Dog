@@ -84,5 +84,17 @@ class Dog:
         """
         return stuff[:-1]
 
+    def chew_consonnes(self,stuff : str) -> str:
+        """
+        Retourne la chaine consonnes.
+
+        Args:
+            stuff (str): Un objet quelconque (ou n'importe quel texte)
+
+        Returns:
+            str: Les voyelles de la chaine stuff
+        """
+        return ''.join([letter for letter in stuff.lower() if letter in 'aeiouy'])
+
 if __name__ == "__main__":
     pass
