@@ -1,7 +1,7 @@
 """Module providing tests for dogs"""
 
 import unittest
-from sl29.dog.dog import Dog, MatingError
+from sl29.dog.dog import Dog, MatingError, DontFuckYourselfError
 
 #from src.sl29.dog.dog import Dog, MatingError  # Import relatif
 
@@ -48,7 +48,7 @@ class TestDog(unittest.TestCase):
     def test_mate_same_race(self):
         # Test de l'accouplement avec des parents de même race
         puppy = self.rintintin.mate(self.rantanplane)
-        # A FAIRE
+        self.assertEqual(puppy.race, self.rintintin.race)
 
     def test_mate_same_sex_error(self):
         # Test de l'accouplement entre deux chiens de même sexe
@@ -57,7 +57,7 @@ class TestDog(unittest.TestCase):
 
     def test_mate_with_self_error(self):
         # Test de l'accouplement d'un chien avec lui-même
-        with self.assertRaises(MatingError):
+        with self.assertRaises(DontFuckYourselfError):
             self.rintintin.mate(self.rintintin)
 
     def test_puppies_list(self):

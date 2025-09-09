@@ -7,6 +7,10 @@ class MatingError(Exception):
     """Exception levée lorsque deux chiens de même sexe tentent de s'accoupler."""
     pass
 
+class DontFuckYourselfError(Exception):
+    """Exception levée lorsque un chien tente de s'accoupler avec lui même"""
+    pass
+
 
 class Dog:
     """
@@ -141,7 +145,12 @@ class Dog:
 
         Raises:
             MatingError: Si les deux chiens sont de même sexe.
+            DontFuckYourselfError : Si le chien tente de s'accoupler avec lui même
         """
+        # Vérification des chiens
+        if self == other:
+            raise DontFuckYourselfError
+
         # Vérification des sexes
         if self.sex == other.sex:
             raise MatingError
