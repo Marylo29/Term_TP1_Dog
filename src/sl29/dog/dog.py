@@ -71,6 +71,18 @@ class Dog:
             str: Woff concaténée n fois.
         """
         return "Woff"*n
+    
+    def chew(self,stuff : str) -> str:
+        """
+        Retourne la chaine sans son dernier caractère.
+
+        Args:
+            stuff (str): un objet quelconque (ou n'importe quel texte)
+
+        Returns:
+            str: La chaine sans son dernier caractère
+        """
+        return stuff[:-1]
 
 if __name__ == "__main__":
     pass
