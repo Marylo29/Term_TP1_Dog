@@ -11,6 +11,9 @@ class DontFuckYourselfError(Exception):
     """Exception levée lorsque un chien tente de s'accoupler avec lui même"""
     pass
 
+class DontFuckCorpseError(Exception):
+    """Exception levée lorsque un chien tente de s'accoupler avec un chien mort"""
+    pass
 
 class Dog:
     """
@@ -37,6 +40,7 @@ class Dog:
         self._mother = None
         self._father = None
         self._puppies = []
+        self._alive = True
 
     @property
     def race(self) -> str:
@@ -87,6 +91,16 @@ class Dog:
             list[Optional[Dog]]: Les enfants du chien ou liste vide
         """
         return self._puppies
+    
+    @property
+    def alive(self) -> bool:
+        """
+        Retourne si le chien vivant.
+
+        Returns:
+            bool: True si le chien est vivant ou False si le chein est mort
+        """
+        return self._alive
 
     def __str__(self) -> str:
         """
@@ -133,6 +147,16 @@ class Dog:
         """
         return ''.join([letter for letter in stuff.lower() if letter in 'aeiouy'])
     
+    def kill(self) -> str:
+        """
+        Tue le chien et renvoit une message pour confirmer votre acte atroce
+
+        Returns:
+            str: Message ayant pour unique but de vous couvrir de honte
+        """
+        self._alive = False
+        return f'Félicitation vous vener de tuer {self.name}'
+    
     def mate(self, other: 'Dog') -> 'Dog':
         """
         Fait s'accoupler deux chiens et retourne un chiot.
@@ -151,6 +175,9 @@ class Dog:
         if self == other:
             raise DontFuckYourselfError
 
+        if not other.alive:
+            raise DontFuckCorpseError
+        
         # Vérification des sexes
         if self.sex == other.sex:
             raise MatingError
@@ -186,5 +213,5 @@ class Dog:
         return chiot
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     pass

@@ -1,7 +1,7 @@
 """Module providing tests for dogs"""
 
 import unittest
-from sl29.dog.dog import Dog, MatingError, DontFuckYourselfError
+from sl29.dog.dog import Dog, MatingError, DontFuckYourselfError, DontFuckCorpseError
 
 #from src.sl29.dog.dog import Dog, MatingError  # Import relatif
 
@@ -36,6 +36,16 @@ class TestDog(unittest.TestCase):
         self.assertEqual(self.rintintin.chew("os"), "o")
         self.assertEqual(self.rintintin.chew("jouet"), "jouet"[:-1])
 
+    def test_chew_consonnes(self):
+        # Test de la méthode chew_consonnes
+        self.assertEqual(self.rintintin.chew_consonnes("os"), "o")
+        self.assertEqual(self.rintintin.chew_consonnes("jouet"), "oue")
+
+    def test_kill(self):
+        # Test de la méthode kill
+        self.mirza.kill()
+        self.assertFalse(self.mirza.alive)
+
     def test_mate_success(self):
         # Test de l'accouplement réussi
         puppy = self.rintintin.mate(self.laika)
@@ -44,6 +54,9 @@ class TestDog(unittest.TestCase):
         self.assertIn(puppy, self.laika.puppies)
         self.assertEqual(puppy.mother, self.laika)
         self.assertEqual(puppy.father, self.rintintin)
+        puppy2 = self.laika.mate(self.rintintin)
+        self.assertEqual(puppy2.mother, self.laika)
+        self.assertEqual(puppy2.father, self.rintintin)
 
     def test_mate_same_race(self):
         # Test de l'accouplement avec des parents de même race
@@ -59,6 +72,12 @@ class TestDog(unittest.TestCase):
         # Test de l'accouplement d'un chien avec lui-même
         with self.assertRaises(DontFuckYourselfError):
             self.rintintin.mate(self.rintintin)
+
+    def test_mate_with_corpse_error(self):
+        # Test de l'accouplement d'un chien avec un chien mort
+        with self.assertRaises(DontFuckCorpseError):
+            self.mirza.kill()
+            self.rintintin.mate(self.mirza)
 
     def test_puppies_list(self):
         # Test de la liste des chiots
