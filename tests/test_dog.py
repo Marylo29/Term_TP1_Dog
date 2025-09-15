@@ -79,6 +79,13 @@ class TestDog(unittest.TestCase):
             self.mirza.kill()
             self.rintintin.mate(self.mirza)
 
+    def methodes_when_dead(self):
+        # Test des methodes si le chien est mort
+        self.mirza.kill()
+        self.assertIsNone(self.mirza.bark(5))
+        self.assertIsNone(self.mirza.chew('batte'))
+        self.assertIsNone(self.mirza.chew_consonnes('batte'))
+
     def test_puppies_list(self):
         # Test de la liste des chiots
         puppy1 = self.rintintin.mate(self.laika)

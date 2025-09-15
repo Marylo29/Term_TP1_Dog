@@ -111,7 +111,7 @@ class Dog:
         """
         return f"Chien: {self.name}, Race: {self._race}, Sexe: {self._sex}"
     
-    def bark(self,n : int = 1) -> str:
+    def bark(self,n : int = 1) -> Optional[str]:
         """
         Retourne une string d'un chien qui aboit
 
@@ -119,11 +119,12 @@ class Dog:
             n (int, optional): Un entier. Par défaut vaut 1.
 
         Returns:
-            str: Woff concaténée n fois.
+            Optional[str]: Woff concaténée n fois si le chien est vivant.
         """
-        return "Woff"*n
+        if self.alive:
+            return "Woff"*n
     
-    def chew(self,stuff : str) -> str:
+    def chew(self,stuff : str) -> Optional[str]:
         """
         Retourne la chaine sans son dernier caractère.
 
@@ -131,11 +132,12 @@ class Dog:
             stuff (str): un objet quelconque (ou n'importe quel texte)
 
         Returns:
-            str: La chaine sans son dernier caractère
+            Optional[str]: La chaine sans son dernier caractère si le chien est vivant
         """
-        return stuff[:-1]
+        if self.alive:
+            return stuff[:-1]
 
-    def chew_consonnes(self,stuff : str) -> str:
+    def chew_consonnes(self,stuff : str) -> Optional[str]:
         """
         Retourne la chaine consonnes.
 
@@ -143,9 +145,10 @@ class Dog:
             stuff (str): Un objet quelconque (ou n'importe quel texte)
 
         Returns:
-            str: Les voyelles de la chaine stuff
+            Optional[str]: Les voyelles de la chaine stuff si le chien est vivant
         """
-        return ''.join([letter for letter in stuff.lower() if letter in 'aeiouy'])
+        if self.alive:
+            return ''.join([letter for letter in stuff.lower() if letter in 'aeiouy'])
     
     def kill(self) -> str:
         """
